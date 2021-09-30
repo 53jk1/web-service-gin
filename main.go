@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,13 +22,18 @@ var albums = []album{
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
+var ipPort string
+
 func main() {
+	fmt.Println("Enter desired ip:port")
+	fmt.Println("e.g. localhost:8080")
+	fmt.Scanln(&ipPort)
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
 
-	router.Run("localhost:8080")
+	router.Run(ipPort)
 }
 
 // getAlbums responds with the list of all albums as JSON.
